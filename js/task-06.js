@@ -3,17 +3,14 @@ const inputEl = document.querySelector("#validation-input");
 const inputValueLength = inputEl.addEventListener("blur", onInputChange);
 
 function onInputChange(evt) {
-  evt.currentTarget.value.length === Number(inputEl.getAttribute("data-length"))
-    ? addClass("valid", "invalid")
-    : addClass("invalid", "valid");
-}
-
-function сhangeClass(newclass, oldclass) {
   if (
-    !inputEl.classList.contains(`${newclass}`) &&
-    !inputEl.classList.contains(`${oldclass}`)
+    evt.currentTarget.value.length ===
+    Number(inputEl.getAttribute("data-length"))
   ) {
-    return inputEl.classList.add(`${newclass}`);
+    inputEl.classList.add("valid");
+    inputEl.classList.remove("invalid");
+  } else {
+    inputEl.classList.add("invalid");
+    inputEl.classList.remove("valid");
   }
-  return inputEl.classList.replace(`${oldclass}`, `${newclass}`);
 }
