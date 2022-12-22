@@ -7,8 +7,8 @@ function onFormSubmit(e) {
   const email = e.currentTarget.elements.email.value;
   const password = e.currentTarget.elements.password.value;
 
-  if (!email && password) {
-    alert("Всі поля повинні бути заповнені");
+  if (!(email && password)) {
+    return alert("Всі поля повинні бути заповнені");
   } else {
     const formData = new FormData(e.currentTarget);
     const result = {};
@@ -16,7 +16,6 @@ function onFormSubmit(e) {
     for (let [key, value] of formData.entries()) {
       result[key] = value;
     }
-    
     console.log(result);
     e.currentTarget.reset(result);
   }

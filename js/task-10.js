@@ -11,27 +11,33 @@ const ref = {
 
 ref.btnCreateEl.addEventListener("click", onbtnCreateClick);
 ref.btnDestroyEl.addEventListener("click", onbtnDestroyClick);
+ref.inputEl.addEventListener("input", () => ref.inputEl.value);
 
-function onbtnCreateClick() {}
-
-function onbtnDestroyClick() {
-  
+function onbtnCreateClick() {
+  createBoxes(ref.inputEl.value);
 }
 
-function createBoxes(amount) {}
+function onbtnDestroyClick() {
+  ref.inputEl.value = "";
+  destroyBoxes();
+}
 
-function destroyBoxes() {}
-// Користувач вводить кількість елементів в input і натискає кнопку Створити, після чого рендериться колекція.
-// Натисненням на кнопку Очистити, колекція елементів очищається.
+function createBoxes(amount) {
+  let width = 20;
+  let height = 20;
+  let divsEl = "";
+  for (let i = 0; i < amount; i++) {
+    width += 10;
+    height += 10;
+    divsEl += `
+  <div style="width:${width}px; height:${height}px; background-color:${getRandomHexColor()}"> 
+  </div>
+  `;
+  }
+  const divColection = ref.divBoxesEl.insertAdjacentHTML("afterbegin", divsEl);
+  return divColection;
+}
 
-// Створи функцію createBoxes(amount), яка приймає один параметр - число.Функція створює стільки < div >,
-//   скільки вказано в amount і додає їх у div#boxes.
-
-// Розміри найпершого <div> - 30px на 30px.
-// Кожен елемент після першого повинен бути ширшим і вищим від попереднього на 10px.
-// Всі елементи повинні мати випадковий колір фону у форматі HEX.
-// Використовуй готову функцію getRandomHexColor для отримання кольору.
-
-// Створи функцію destroyBoxes(), яка очищає вміст div#boxes, у такий спосіб видаляючи всі створені елементи.
-
-// Напиши скрипт створення і очищення колекції елементів.
+function destroyBoxes() {
+  ref.divBoxesEl.innerHTML = "";
+}
